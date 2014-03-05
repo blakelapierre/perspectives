@@ -1,3 +1,3 @@
-Reassembling into a node/angular app.
+node+angular+pics
 
-If you run it now...not sure...most likely a white page (you could probably figure it out though).
+Unfortunately you only get a single perspective from a small image right now. This will change shortly to larger images and many more perspectives.

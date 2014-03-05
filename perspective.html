@@ -230,12 +230,15 @@
 		</script>
 	</head>
 	<body>
-		<div id="container">
+		<div class="container">
 			<canvas id="canvas" width="1800" height="750"></canvas>
 		</div>
+		<div class="images">
+			<img ng-repeat="image in images" ng-src="image" width="300" height="200" ng-click="load(image)" />
 		<img src="images/jewel.jpg" width="300" height="200" onclick="cloud = ps.load(this.src);" />
 		<img src="images/morning_glory.jpg" width="300" height="200" onclick="cloud = ps.load(this.src);" />
 		<img src="images/yellowstone/wasteland.jpg" width="300" height="200" onclick="cloud = ps.load(this.src);" />
 		<img src="images/yellowstone/clouds.jpg" width="300" height="200" onclick="cloud = ps.load(this.src);" />
+		</div>
 	</body>
 </html>
