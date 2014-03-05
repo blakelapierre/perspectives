@@ -1,0 +1,241 @@
+<html>
+	<head>
+		<title>Perspective</title>
+
+		<style>
+		#container {
+			width: 100%;
+			text-align: center;
+		}
+
+		canvas {
+			display: inline;
+		}
+		</style>
+
+		<script type="text/javascript" src="jquery-1.9.1.min.js"></script>
+		<script type="text/javascript" src="jquery.event.move.js"></script>
+		<script type="text/javascript" src="hammer.min.js"></script>
+		<script type="text/javascript" src="jquery.hammer.min.js"></script>
+		<script type="text/javascript" src="three.min.js"></script>
+		<script type="text/javascript" src="three.trackballcontrols.js"></script>
+		<script type="text/javascript" src="xbps-min-0.8.js"></script>
+		<script type="text/javascript" src="ImageParser.js"></script>
+		<script type="text/javascript" src="OrbitCam.js"></script>
+
+		<script type="x-shader/x-fragment" id="fragmentShader">
+		#ifdef GL_ES                 
+		precision highp float;   
+		#endif                   
+		                             
+		varying vec4 frontColor; 
+		void main(void) {         
+			gl_FragColor = frontColor;  
+		}
+		</script>
+
+		<script type="x-shader/x-vertex" id="vertexShader">
+		varying vec4 frontColor; 
+
+		attribute vec3 ps_Vertex;
+		attribute vec4 ps_Color;
+
+		uniform float ps_PointSize;
+		uniform vec3 ps_Attenuation;
+
+		uniform mat4 ps_ModelViewMatrix;
+		uniform mat4 ps_ProjectionMatrix;
+
+		uniform float time;
+
+		void main(void) {
+			frontColor = ps_Color;
+			vec3 pos = ps_Vertex;
+			pos[2] = pos[2] + sin(time * cos(pos[2] - pos[0] - pos[1])) * 5.0;
+			vec4 ecPos4 = ps_ModelViewMatrix * vec4(pos, 1.0);
+			
+			float dist = length(ecPos4);
+			float attn = ps_Attenuation[0] +
+						(ps_Attenuation[1] * dist) +
+						(ps_Attenuation[2] * dist * dist);
+
+			gl_PointSize = (attn > 0.0) ? ps_PointSize * sqrt(1.0/attn) : 1.0;
+			gl_Position = ps_ProjectionMatrix * ecPos4;
+		}
+		</script>
+
+		<script type="text/javascript">
+		var ps, cloud;
+		$(function() {
+			ps = new PointStream();
+			var	cam = new OrbitCam({closest: -100000, farthest: 100000, distance: 500}),
+				isDragging = false,
+				rotationStartCoords = [0, 0];
+
+			var zoom = function(amt) {
+				  var invert = false ? -1: 1;
+				  amt *= invert * 100;
+
+				  console.log(amt);
+				  if(amt < 0) cam.goCloser(-amt);
+				  else cam.goFarther(amt);
+			};
+
+			var mousePressed = function() {
+				rotationStartCoords[0] = ps.mouseX;
+				rotationStartCoords[1] = ps.mouseY;
+
+				isDragging = true;
+			};
+
+			var mouseReleased = function() {
+				isDragging = false;
+			};
+
+			var moved = false,
+				stepsSinceMove = 0;
+			var frame = 0;
+			var vy = 0,
+				vp = 0;
+
+			var deltaX = 0,
+				deltaY = 0;
+
+			var time = 0;
+
+			var normalSpeed = 0.001,
+				slowSpeed = normalSpeed / 10,
+				speed = normalSpeed;
+			var count = 0;
+			var render = function() {
+				ps.uniformf('time', time);
+				time += 0.1;
+
+				if (isDragging && moved) {
+					//console.log(deltaX + ' ' + deltaY);
+					//var deltaX = ps.mouseX - rotationStartCoords[0],
+					//	deltaY = ps.mouseY - rotationStartCoords[1];
+
+					//rotationStartCoords = [ps.mouseX, ps.mouseY];
+					vy = Math.abs(deltaX) < 1 ? 0 : deltaX * speed;
+					vp = Math.abs(deltaY) < 1 ? 0 : -deltaY * speed;
+					moved = false;
+					stepsSinceMove = 0;
+				}
+				else if (isDragging){
+					vy = vy * 0.95;
+					vp = vp * 0.95;
+				}
+				//else {
+					//vy *= 0.9;
+					//vp *= 0.9;
+				//}
+
+				else {
+					stepsSinceMove++;
+					//vy = Math.abs(deltaX) < 1 ? 0 : deltaX * speed * (1 / stepsSinceMove);
+					//vp = Math.abs(deltaY) < 1 ? 0 : -deltaY * speed * (1 / stepsSinceMove);
+					vy = vy * 0.75;
+					vp = vp * 0.75;
+				}
+
+				cam.yaw(vy);
+				cam.pitch(vp);
+
+				var distance = cam.direction[0] * cam.direction[0] + cam.direction[1] * cam.direction[1] + (cam.direction[2] + 1) * (cam.direction[2] + 1);
+				if (distance > 0.0000005) {
+					var c = cloud.getCenter();
+					ps.multMatrix(M4x4.makeLookAt(cam.position, cam.direction, cam.up));
+					ps.translate(-cam.position[0] - c[0], -cam.position[1] - c[1], -cam.position[2] - c[2]);
+				}
+
+
+
+				if (distance < 0.001) speed = slowSpeed;
+				else if (distance < 0.0005) speed = slowSpeed * 0.2;
+				else speed = normalSpeed;
+				//speed = distance * 0.21 + 0.01;
+				//speed = 0.005
+
+				//else ps.pointSize(75);
+
+				ps.clear();
+
+				if (cloud.attributes && cloud.attributes.ps_Vertex) {
+					var points = cloud.attributes.ps_Vertex[0].array;
+					for (var i = 0; i < points.length; i = i + 3) {
+						points[i] = points[i] + Math.sin(count) * 100;
+					}
+					count++;
+				}
+
+				ps.render(cloud);
+			};
+
+			ps.setup(document.getElementById('canvas'));
+
+			var shader = ps.createProgram($('#vertexShader').text(), $('#fragmentShader').text());
+			ps.useProgram(shader);
+
+			//ps.ortho(0, 600, 0, 300, -10000, 10000);
+			ps.ortho();
+			ps.registerParser('jpg', ImageParser);
+			//ps.pointSize(25);
+			ps.onRender = render;
+			ps.onMouseScroll = zoom;
+			//ps.onMousePressed = mousePressed;
+			//ps.onMouseReleased = mouseReleased;
+
+			console.dir(ps);
+
+			$('canvas')
+				.bind('move', function(e) { 
+					deltaX = e.deltaX; 
+					deltaY = e.deltaY; 
+					moved = true;  
+					//console.dir(e); 
+				})
+				.bind('movestart', function(e) { 
+					isDragging = true; 
+					//console.log('start'); 
+				})
+				.bind('moveend', function(e) { 
+					isDragging = false; 
+					//console.log('end'); 
+				});
+			
+			$('body')
+					.hammer()
+					.on('drag', function(e) {
+
+						if (e.gesture.center.pageX < 200) {
+							console.log(e.gesture.deltaX + ' ' + e.gesture.deltaY);
+							speed = 0.005 * -(e.gesture.deltaY / 10);
+
+							speed = Math.min(Math.max(speed, 0.0001), 1.0);
+							console.log(speed);
+						}
+					});
+
+			//var cloud = ps.load('images/bosque-rojos-verdes3.jpg');
+			// var cloud = ps.load('images/crate.jpg');
+      		// var cloud = ps.load('images/brsmed.jpg');
+			cloud = ps.load('images/Stunning_Mountain_Landscape.jpg');
+			// var cloud = ps.load('images/jewel.jpg');
+			// var cloud = ps.load('images/P7110915.jpg');
+			// var cloud = ps.load('images/cat_pumpkin.jpg');
+			// var cloud = ps.load('images/leaves.jpg');
+			// var cloud = ps.load('images/morning_glory.jpg');
+		});
+		</script>
+	</head>
+	<body>
+		<div id="container">
+			<canvas id="canvas" width="1800" height="750"></canvas>
+		</div>
+		<img src="images/jewel.jpg" width="300" height="200" onclick="cloud = ps.load(this.src);" />
+		<img src="images/morning_glory.jpg" width="300" height="200" onclick="cloud = ps.load(this.src);" />
+		<img src="images/yellowstone/wasteland.jpg" width="300" height="200" onclick="cloud = ps.load(this.src);" />
+		<img src="images/yellowstone/clouds.jpg" width="300" height="200" onclick="cloud = ps.load(this.src);" />
+	</body>
+</html>

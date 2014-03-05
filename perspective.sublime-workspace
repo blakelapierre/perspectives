@@ -1,0 +1,386 @@
+{
+	"auto_complete":
+	{
+		"selected_items":
+		[
+			[
+				"ss",
+				"ss"
+			],
+			[
+				"listen",
+				"listenToOrientation"
+			],
+			[
+				"orien",
+				"orientationResource"
+			],
+			[
+				"sear",
+				"searchFor"
+			],
+			[
+				"per",
+				"percepts"
+			],
+			[
+				"percep",
+				"perception"
+			],
+			[
+				"perc",
+				"perception"
+			],
+			[
+				"fr",
+				"for	for (…) {…}"
+			],
+			[
+				"globalDis",
+				"globalDistanceInMiles"
+			],
+			[
+				"goe",
+				"geolocationResource"
+			],
+			[
+				"geolocation",
+				"geolocationResource"
+			]
+		]
+	},
+	"buffers":
+	[
+		{
+			"file": "perspective.html",
+			"settings":
+			{
+				"buffer_size": 6641,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "ImageParser.js",
+			"settings":
+			{
+				"buffer_size": 3600,
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "three.trackballcontrols.js",
+			"settings":
+			{
+				"buffer_size": 12486,
+				"line_ending": "Windows"
+			}
+		}
+	],
+	"build_system": "",
+	"command_palette":
+	{
+		"height": 390.0,
+		"selected_items":
+		[
+			[
+				"in",
+				"Indentation: Reindent Lines"
+			],
+			[
+				"inden",
+				"Indentation: Reindent Lines"
+			],
+			[
+				"ta",
+				"Indentation: Reindent Lines"
+			]
+		],
+		"width": 567.0
+	},
+	"console":
+	{
+		"height": 162.0,
+		"history":
+		[
+			"import urllib2,os; pf='Package Control.sublime-package'; ipp=sublime.installed_packages_path(); os.makedirs(ipp) if not os.path.exists(ipp) else None; urllib2.install_opener(urllib2.build_opener(urllib2.ProxyHandler())); open(os.path.join(ipp,pf),'wb').write(urllib2.urlopen('http://sublime.wbond.net/'+pf.replace(' ','%20')).read()); print('Please restart Sublime Text to finish installation')"
+		]
+	},
+	"distraction_free":
+	{
+		"menu_visible": true,
+		"show_minimap": false,
+		"show_open_files": false,
+		"show_tabs": false,
+		"side_bar_visible": false,
+		"status_bar_visible": false
+	},
+	"file_history":
+	[
+		"/C/development/ss/public/css/bootstrap.min.css",
+		"/C/development/ss/npm-debug.log",
+		"/C/development/ss/public/js/ss/utilities.js",
+		"/C/development/ss/public/js/ss/filters/priceLevel.js",
+		"/C/development/ss/public/js/ss/services/sensorResource.js",
+		"/C/development/ss/public/js/ss/controllers/perception.js",
+		"/C/development/ss/public/js/ss/services/geolocationResource.js",
+		"/C/development/ss/public/js/ss/services/orientationResource.js",
+		"/C/development/ss/public/js/ss/directives/viewport.js",
+		"/C/development/ss/public/js/angular.min.1.2.0rc1.js",
+		"/C/development/ss/public/css/bootstrap.css",
+		"/C/development/ss/public/js/angular.min.js",
+		"/C/development/ss/public/js/sites.js",
+		"/C/development/ss/package.json",
+		"/C/development/ss/server.js",
+		"/C/development/ss/public/index.html",
+		"/C/development/ss/public/js/client.js",
+		"/C/development/aether/public/js/client.js",
+		"/C/development/aether/server.js",
+		"/C/Users/blake/AppData/Roaming/Sublime Text 3/Packages/Default/Default (Windows).sublime-keymap",
+		"/C/development/ss/index.html",
+		"/C/development/aether/tpl/page.jade"
+	],
+	"find":
+	{
+		"height": 43.0
+	},
+	"find_in_files":
+	{
+		"height": 117.0,
+		"where_history":
+		[
+			""
+		]
+	},
+	"find_state":
+	{
+		"case_sensitive": false,
+		"find_history":
+		[
+			"camera",
+			"controls",
+			"frontcolor",
+			"listenToOrientation",
+			"console",
+			"$scope.interests",
+			"search-container",
+			"priceLevel",
+			"geolocationResource",
+			";\n",
+			"getPerceptsNear",
+			"distance",
+			"position",
+			"getCurrentPosition",
+			"callback",
+			"chForInterest",
+			"getPlacesNear",
+			"event",
+			"searchFor",
+			"percieve",
+			"getPerception",
+			"alert",
+			"Radius",
+			"radius",
+			"ctrl+f"
+		],
+		"highlight": true,
+		"in_selection": false,
+		"preserve_case": false,
+		"regex": false,
+		"replace_history":
+		[
+			"interests",
+			"location",
+			"searchCallback",
+			"searchForInterest",
+			"interests",
+			"perceive",
+			"percieve"
+		],
+		"reverse": false,
+		"show_context": true,
+		"use_buffer2": true,
+		"whole_word": false,
+		"wrap": true
+	},
+	"groups":
+	[
+		{
+			"selected": 2,
+			"sheets":
+			[
+				{
+					"buffer": 0,
+					"file": "perspective.html",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 6641,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								743,
+								746
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/HTML/HTML.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 3095.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 1,
+					"type": "text"
+				},
+				{
+					"buffer": 1,
+					"file": "ImageParser.js",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 3600,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								2871,
+								2894
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/JavaScript/JavaScript.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 1872.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 2,
+					"type": "text"
+				},
+				{
+					"buffer": 2,
+					"file": "three.trackballcontrols.js",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 12486,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								4514,
+								4522
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/JavaScript/JavaScript.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 11736.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 0,
+					"type": "text"
+				}
+			]
+		}
+	],
+	"incremental_find":
+	{
+		"height": 30.0
+	},
+	"input":
+	{
+		"height": 40.0
+	},
+	"layout":
+	{
+		"cells":
+		[
+			[
+				0,
+				0,
+				1,
+				1
+			]
+		],
+		"cols":
+		[
+			0.0,
+			1.0
+		],
+		"rows":
+		[
+			0.0,
+			1.0
+		]
+	},
+	"menu_visible": true,
+	"output.find_results":
+	{
+		"height": 0.0
+	},
+	"output.haskell_sublime_load":
+	{
+		"height": 142.0
+	},
+	"project": "perspective.sublime-project",
+	"replace":
+	{
+		"height": 80.0
+	},
+	"save_all_on_build": true,
+	"select_file":
+	{
+		"height": 0.0,
+		"selected_items":
+		[
+			[
+				"client",
+				"public\\js\\client.js"
+			]
+		],
+		"width": 0.0
+	},
+	"select_project":
+	{
+		"height": 0.0,
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"select_symbol":
+	{
+		"height": 0.0,
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"settings":
+	{
+	},
+	"show_minimap": true,
+	"show_open_files": false,
+	"show_tabs": true,
+	"side_bar_visible": true,
+	"side_bar_width": 263.0,
+	"status_bar_visible": true,
+	"template_settings":
+	{
+	}
+}

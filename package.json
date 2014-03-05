@@ -1,0 +1,9 @@
+{
+    "name": "perspectives",
+    "version": "0.0.1",
+    "description": "you can't (yet) change the world in a day, but at least you can get a new perspective",
+    "dependencies": {
+        "express": "latest"
+    },
+    "author": "Blake La Pierre"
+}
