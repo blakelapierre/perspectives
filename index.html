@@ -3,20 +3,20 @@
 <head>
 	<title>Perspectives</title>
 
-	<script type="text/javascript" src="/js/lib/jquery-1.9.1.min.js"></script>
-	<script type="text/javascript" src="/js/lib/jquery.event.move.js"></script>
-	<script type="text/javascript" src="/js/lib/angular.min.js"></script>
-	<script type="text/javascript" src="/js/lib/hammer.min.js"></script>
-	<script type="text/javascript" src="/js/lib/jquery.hammer.min.js"></script>
-	<script type="text/javascript" src="/js/lib/three.min.js"></script>
-	<script type="text/javascript" src="/js/lib/three.trackballcontrols.js"></script>
-	<script type="text/javascript" src="/js/lib/xbps-min-0.8.js"></script>
-	<script type="text/javascript" src="/js/ImageParser.js"></script>
-	<script type="text/javascript" src="/js/lib/OrbitCam.js"></script>
+	<script type="text/javascript" src="js/lib/jquery-1.9.1.min.js"></script>
+	<script type="text/javascript" src="js/lib/jquery.event.move.js"></script>
+	<script type="text/javascript" src="js/lib/angular.min.js"></script>
+	<script type="text/javascript" src="js/lib/hammer.min.js"></script>
+	<script type="text/javascript" src="js/lib/jquery.hammer.min.js"></script>
+	<script type="text/javascript" src="js/lib/three.min.js"></script>
+	<script type="text/javascript" src="js/lib/three.trackballcontrols.js"></script>
+	<script type="text/javascript" src="js/lib/xbps-min-0.8.js"></script>
+	<script type="text/javascript" src="js/ImageParser.js"></script>
+	<script type="text/javascript" src="js/lib/OrbitCam.js"></script>
 
-	<script type="text/javascript" src="/js/perspectives/perspective.js"></script>
+	<script type="text/javascript" src="js/perspectives/perspective.js"></script>
 
-	<link rel="stylesheet" type="text/css" href="/css/perspective.css" />
+	<link rel="stylesheet" type="text/css" href="css/perspective.css" />
 </head>
 <body ng-controller="PerspectiveCtrl">
 	<div class="container">
@@ -24,23 +24,23 @@
 	</div>
 	<div class="images">
 		<div class="image-container" ng-repeat="image in images">
-			<img src="/images/{{image}}" width="300" height="200" ng-click="load(image)" />
+			<img src="images/{{image}}" width="300" height="200" ng-click="load(image)" />
 		</div>
 	</div>
 
 	<script type="x-shader/x-fragment" id="fragmentShader">
-	#ifdef GL_ES                 
-	precision highp float;   
-	#endif                   
-	                             
-	varying vec4 frontColor; 
-	void main(void) {         
-		gl_FragColor = frontColor;  
+	#ifdef GL_ES
+	precision highp float;
+	#endif
+
+	varying vec4 frontColor;
+	void main(void) {
+		gl_FragColor = frontColor;
 	}
 	</script>
 
 	<script type="x-shader/x-vertex" id="vertexShader">
-	varying vec4 frontColor; 
+	varying vec4 frontColor;
 
 	attribute vec3 ps_Vertex;
 	attribute vec4 ps_Color;
@@ -58,7 +58,7 @@
 		vec3 pos = ps_Vertex;
 		pos[2] = pos[2] + sin(time * cos(pos[2] - pos[0] - pos[1])) * 5.0;
 		vec4 ecPos4 = ps_ModelViewMatrix * vec4(pos, 1.0);
-		
+
 		float dist = length(ecPos4);
 		float attn = ps_Attenuation[0] +
 					(ps_Attenuation[1] * dist) +
